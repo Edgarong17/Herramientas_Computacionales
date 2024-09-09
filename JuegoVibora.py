@@ -1,13 +1,20 @@
 from turtle import *
-from random import randrange
+from random import randrange, choice
 from freegames import square, vector
+
+
+colors = ['blue', 'green', 'yellow', 'pink', 'black']
+
+
+snake_color = choice(colors)
+food_color = choice([color for color in colors if color != snake_color])
 
 food = vector(0, 0)
 snake = [vector(10, 0)]
 aim = vector(0, -10)
 
 def change(x, y):
-    "Change snake direction."
+    "Change snake direction." 
     aim.x = x
     aim.y = y
 
@@ -21,7 +28,7 @@ def move():
     head.move(aim)
 
     if not inside(head) or head in snake:
-        square(head.x, head.y, 9, 'red')
+        square(head.x, head.y, 9, 'red')  #
         update()
         return
 
@@ -37,9 +44,9 @@ def move():
     clear()
 
     for body in snake:
-        square(body.x, body.y, 9, 'black')
+        square(body.x, body.y, 9, snake_color)
 
-    square(food.x, food.y, 9, 'green')
+    square(food.x, food.y, 9, food_color)
     update()
     ontimer(move, 100)
 
@@ -52,4 +59,6 @@ onkey(lambda: change(-10, 0), 'Left')
 onkey(lambda: change(0, 10), 'Up')
 onkey(lambda: change(0, -10), 'Down')
 move()
+
 done()
+
