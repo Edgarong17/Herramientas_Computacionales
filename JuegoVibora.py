@@ -26,13 +26,28 @@ def move():
         return
 
     snake.append(head)
-
-    if head == food:
+    compx=head.x -food.x
+    compy=head.y - food.y
+    if compx<=5 and compx>=-5 and compy<=5 and compy>=-5:
         print('Snake:', len(snake))
         food.x = randrange(-15, 15) * 10
         food.y = randrange(-15, 15) * 10
     else:
         snake.pop(0)
+        if food.x + 1 >=190:
+            food.x = randrange(food.x-1,food.x)
+        elif food.x -1 <= -200:
+            food.x = randrange(food.x,food.x+1)
+        else:
+            food.x = randrange(food.x-1, food.x+1)
+
+        if food.y + 1 >=190:
+            food.y = randrange(food.y-1,food.y)
+        elif food.y -1 <= -200:
+            food.y = randrange(food.y,food.y+1)
+        else:
+            food.y = randrange(food.y-1, food.y+1)
+
 
     clear()
 
