@@ -9,7 +9,8 @@ def line(start, end):
     down()
     goto(end.x, end.y)
 
-def square(start, end):    "Draw square from start to end."
+def square(start, end):
+    "Draw square from start to end."
     up()
     goto(start.x, start.y)
     down()
