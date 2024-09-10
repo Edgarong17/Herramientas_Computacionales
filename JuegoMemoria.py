@@ -3,12 +3,21 @@ from turtle import *
 from freegames import path
 
 car = path('car.gif')
-tiles = list(range(32)) * 2
+
+flags = ["AR", "AU", "BR", "CA", "CN", "DE", "ES", "FR",
+         "MX", "NL", "NO", "PT", "US", "JP", "IT", "GB",
+         "AR", "AU", "BR", "CA", "CN", "DE", "ES", "FR",
+         "GB", "IT", "JP", "MX", "NL", "NO", "PT", "US",
+	 "AR", "AU", "BR", "CA", "CN", "DE", "ES", "FR",
+         "MX", "NL", "NO", "PT", "US", "JP", "IT", "GB",
+         "AR", "AU", "BR", "CA", "CN", "DE", "ES", "FR",
+         "GB", "IT", "JP", "MX", "NL", "NO", "PT", "US"]
+
 state = {'mark': None}
 hide = [True] * 64
 
 def square(x, y):
-    "Draw white square with black outline at (x, y)."
+    "Dibuja un cuadrado blanco con un borde negro en (x, y)."
     up()
     goto(x, y)
     down()
@@ -20,19 +29,19 @@ def square(x, y):
     end_fill()
 
 def index(x, y):
-    "Convert (x, y) coordinates to tiles index."
+    "Convierte las coordenadas (x, y) en un índice de la lista de casillas."
     return int((x + 200) // 50 + ((y + 200) // 50) * 8)
 
 def xy(count):
-    "Convert tiles count to (x, y) coordinates."
+    "Convierte un índice de la lista de casillas en coordenadas (x, y)."
     return (count % 8) * 50 - 200, (count // 8) * 50 - 200
 
 def tap(x, y):
-    "Update mark and hidden tiles based on tap."
+    "Actualiza la marca y las casillas ocultas según el toque del usuario."
     spot = index(x, y)
     mark = state['mark']
 
-    if mark is None or mark == spot or tiles[mark] != tiles[spot]:
+    if mark is None or mark == spot or flags[mark] != flags[spot]:
         state['mark'] = spot
     else:
         hide[spot] = False
@@ -40,7 +49,7 @@ def tap(x, y):
         state['mark'] = None
 
 def draw():
-    "Draw image and tiles."
+    "Dibuja la imagen del carro y las casillas."
     clear()
     goto(0, 0)
     shape(car)
@@ -56,14 +65,14 @@ def draw():
     if mark is not None and hide[mark]:
         x, y = xy(mark)
         up()
-        goto(x + 2, y)
+        goto(x + 25, y + 8)
         color('black')
-        write(tiles[mark], font=('Arial', 30, 'normal'))
+        write(flags[mark], align="center", font=('Arial', 20, 'normal'))
 
     update()
     ontimer(draw, 100)
 
-shuffle(tiles)
+shuffle(flags)  
 setup(420, 420, 370, 0)
 addshape(car)
 hideturtle()
@@ -71,3 +80,4 @@ tracer(False)
 onscreenclick(tap)
 draw()
 done()
+
