@@ -12,6 +12,8 @@ food_color = choice([color for color in colors if color != snake_color])
 food = vector(0, 0)
 snake = [vector(10, 0)]
 aim = vector(0, -10)
+vel = 10
+
 
 def change(x, y):
     "Change snake direction." 
@@ -24,6 +26,7 @@ def inside(head):
 
 def move():
     "Move snake forward one segment."
+    global vel
     head = snake[-1].copy()
     head.move(aim)
 
@@ -39,6 +42,7 @@ def move():
         print('Snake:', len(snake))
         food.x = randrange(-15, 15) * 10
         food.y = randrange(-15, 15) * 10
+        vel = vel+1
     else:
         snake.pop(0)
         if food.x + 1 >=190:
@@ -69,10 +73,10 @@ setup(420, 420, 370, 0)
 hideturtle()
 tracer(False)
 listen()
-onkey(lambda: change(10, 0), 'Right')
-onkey(lambda: change(-10, 0), 'Left')
-onkey(lambda: change(0, 10), 'Up')
-onkey(lambda: change(0, -10), 'Down')
+onkey(lambda: change(vel, 0), 'Right')
+onkey(lambda: change(-vel, 0), 'Left')
+onkey(lambda: change(0, vel), 'Up')
+onkey(lambda: change(0, -vel), 'Down')
 move()
 
 done()
