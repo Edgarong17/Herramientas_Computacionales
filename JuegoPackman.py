@@ -44,8 +44,8 @@ import random
 def randomize_tiles(): #Funcion para generar un tablero diferente cada vez que inicia el juego
     count = 0
     while count < 5:
-        i = random.randint(22, len(tiles) - 23)  
-        if i % 20 != 0 and (i + 1) % 20 != 0:  
+        i = random.randint(22, len(tiles) - 23) #Evita los bordes 
+        if i % 20 != 0 and (i + 1) % 20 != 0:  #No cambia los extremos de las filas
             if tiles[i] == 1:
                 tiles[i] = 0  
                 count += 1  
