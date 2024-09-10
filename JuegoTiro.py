@@ -7,7 +7,7 @@ speed = vector(0, 0)
 targets = []
 
 def tap(x, y):
-    "Respond to screen tap."
+    "Responde al toque de pantalla"
     if not inside(ball):
         ball.x = -199
         ball.y = -199
@@ -15,11 +15,11 @@ def tap(x, y):
         speed.y = (y + 200) / 12
 
 def inside(xy):
-    "Return True if xy within screen."
+    "Devuelve veradero si el punto xy esta dentro de los limites de la pantalla"
     return -200 < xy.x < 200 and -200 < xy.y < 200
 
 def draw():
-    "Draw ball and targets."
+    "Dibuja la bola y los objetivos"
     clear()
 
     for target in targets:
@@ -33,7 +33,7 @@ def draw():
     update()
 
 def move():
-    "Move ball and targets."
+    "Es el movimiento de la bola y de los objetivos"
     if randrange(40) == 0:
         y = randrange(-150, 150)
         target = vector(200, y)
