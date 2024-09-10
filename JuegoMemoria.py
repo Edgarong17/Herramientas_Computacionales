@@ -15,8 +15,8 @@ flags = ["AR", "AU", "BR", "CA", "CN", "DE", "ES", "FR",
 
 state = {'mark': None}
 hide = [True] * 64
-NTaps=0
-
+NTap = 0
+COpen= 0
 
 def square(x, y):
     "Dibuja un cuadrado blanco con un borde negro en (x, y)."
@@ -40,7 +40,9 @@ def xy(count):
 
 def tap(x, y):
     "Actualiza la marca y las casillas ocultas según el toque del usuario."
-    NTaps=NTaps+1
+    global NTap
+    global COpen
+    NTap= NTap+1
     spot = index(x, y)
     mark = state['mark']
 
@@ -50,6 +52,7 @@ def tap(x, y):
         hide[spot] = False
         hide[mark] = False
         state['mark'] = None
+        COpen=COpen+2
 
 def draw():
     "Dibuja la imagen del carro y las casillas."
@@ -71,7 +74,12 @@ def draw():
         goto(x + 25, y + 8)
         color('black')
         write(flags[mark], align="center", font=('Arial', 20, 'normal'))
-
+    up()
+    setpos (170, 150)
+    write(str(NTap), align = "center",font=('Arial', 12, 'normal'))
+    if COpen >= 64:
+        setpos (00, 00)
+        write("Terminaste el Juego", align = "center",font=('Arial', 18, 'normal'))
     update()
     ontimer(draw, 100)
 
