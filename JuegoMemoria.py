@@ -15,6 +15,8 @@ flags = ["AR", "AU", "BR", "CA", "CN", "DE", "ES", "FR",
 
 state = {'mark': None}
 hide = [True] * 64
+NTaps=0
+
 
 def square(x, y):
     "Dibuja un cuadrado blanco con un borde negro en (x, y)."
@@ -38,6 +40,7 @@ def xy(count):
 
 def tap(x, y):
     "Actualiza la marca y las casillas ocultas según el toque del usuario."
+    NTaps=NTaps+1
     spot = index(x, y)
     mark = state['mark']
 
@@ -72,7 +75,7 @@ def draw():
     update()
     ontimer(draw, 100)
 
-shuffle(flags)  
+shuffle(flags)
 setup(420, 420, 370, 0)
 addshape(car)
 hideturtle()
