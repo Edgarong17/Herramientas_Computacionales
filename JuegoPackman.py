@@ -3,12 +3,12 @@ from turtle import *
 from freegames import floor, vector
 import random
 
-state = {'score': 0}
-path = Turtle(visible=False)
+state = {'score': 0} #Se implementa el marcador
+path = Turtle(visible=False) # Se crea un objeto 'Turtle' para dibujar el camino, con la visibilidad desactivada.
 writer = Turtle(visible=False)
-aim = vector(5, 0)
-pacman = vector(-40, -80)
-ghosts = [
+aim = vector(5, 0) # Se define un vector para la dirección objetivo inicial
+pacman = vector(-40, -80) # Se define la posición inicial de Pac-Man en el tablero.
+ghosts = [ #Se definen las posiciones de los fantasmas
     [vector(-180, 160), vector(5, 0)],
     [vector(-180, -160), vector(0, 5)],
     [vector(100, 160), vector(0, -5)],
@@ -17,7 +17,7 @@ ghosts = [
 
 
 
-tiles = [
+tiles = [ #Se genera el tablero
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
     0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0,
@@ -41,7 +41,7 @@ tiles = [
 
 import random
 
-def randomize_tiles():
+def randomize_tiles(): #Funcion para generar un tablero diferente cada vez que inicia el juego
     count = 0
     while count < 5:
         i = random.randint(22, len(tiles) - 23)  
@@ -55,7 +55,7 @@ randomize_tiles()
 
 
 def square(x, y):
-    "Draw square using path at (x, y)."
+    "Dibuja un cuadrado de 20x20"
     path.up()
     path.goto(x, y)
     path.down()
@@ -67,14 +67,14 @@ def square(x, y):
     path.end_fill()
 
 def offset(point):
-    "Return offset of point in tiles."
+    "Devuelve el indice correspondiente"
     x = (floor(point.x, 20) + 200) / 20
     y = (180 - floor(point.y, 20)) / 20
     index = int(x + y * 20)
     return index
 
 def valid(point):
-    "Return True if point is valid in tiles."
+    "Checa si el punto esta en una posicion valida, dentro de la cuadricula"
     index = offset(point)
 
     if tiles[index] == 0:
@@ -88,7 +88,7 @@ def valid(point):
     return point.x % 20 == 0 or point.y % 20 == 0
 
 def world():
-    "Draw world using path."
+    "Dibuja el tablero"
     bgcolor('black')
     path.color('blue')
 
@@ -106,7 +106,7 @@ def world():
                 path.dot(2, 'white')
 
 def move():
-    "Move pacman and all ghosts."
+    "Movimiento de todos los fantasmas"
     writer.undo()
     writer.write(state['score'])
 
@@ -127,7 +127,7 @@ def move():
     goto(pacman.x + 10, pacman.y + 10)
     dot(20, 'yellow')
 
-    for point, course in ghosts:
+    for point, course in ghosts: #Para cada fantasma intenta moverlo a su direccion actual
         if valid(point + course):
             point.move(course)
         else:
@@ -181,7 +181,7 @@ def move():
     ontimer(move, 25)
 
 def change(x, y):
-    "Change pacman aim if valid."
+    "Cambia la direccion de packman si es valida"
     if valid(pacman + vector(x, y)):
         aim.x = x
         aim.y = y
